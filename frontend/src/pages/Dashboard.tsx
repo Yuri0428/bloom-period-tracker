@@ -41,6 +41,7 @@ const phaseInfo: Record<string, { color: string; bg: string; desc: string; tips:
 export default function Dashboard() {
   const { user } = useAuth();
   const { currentPhase, currentCycleDay, nextPeriodPrediction, nextOvulation, lastPeriodStart, entries } = useData();
+  console.log({currentCycleDay})
   const [logDate, setLogDate] = useState<string | null>(null);
   const today = format(new Date(), 'yyyy-MM-dd');
 

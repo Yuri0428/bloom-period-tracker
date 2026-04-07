@@ -76,20 +76,24 @@ export default function LogModal({ date, onClose }: Props) {
     setMoods(prev => prev.includes(m) ? prev.filter(x => x !== m) : [...prev, m]);
   };
 
-  const handleSave = () => {
-    addEntry({
-      date,
-      flow,
-      painLevel,
-      symptoms,
-      moods,
-      notes,
-      temperature: temperature ? parseFloat(temperature) : undefined,
-      weight: weight ? parseFloat(weight) : undefined,
-      sexualActivity,
-    });
-    toast.success('Entry saved! 🌸');
-    onClose();
+  const handleSave = async () => {
+    try {
+      await addEntry({
+        date,
+        flow,
+        painLevel,
+        symptoms,
+        moods,
+        notes,
+        temperature: temperature ? parseFloat(temperature) : undefined,
+        weight: weight ? parseFloat(weight) : undefined,
+        sexualActivity,
+      });
+      toast.success('Entry saved! 🌸');
+      onClose();
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to save entry');
+    }
   };
 
   const tabs = [
