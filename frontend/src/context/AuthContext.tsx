@@ -50,8 +50,9 @@ const login = async (email: string, password: string) => {
     throw new Error(error.message || 'Invalid email or password');
   }
 
-  const user = await response.json();
-  setUser(user);
+  const data = await response.json();
+  setUser(data.user);
+  localStorage.setItem('token', data.token);
 };
 
 const signup = async (name: string, email: string, password: string) => {
@@ -75,14 +76,8 @@ const signup = async (name: string, email: string, password: string) => {
     throw new Error(data.message || 'Signup failed');
   }
 
-  // Adjust this depending on your API response shape
-  const newUser = data.user;
-
-  setUser(newUser);
-
-  if (newUser?.id) {
-    localStorage.setItem(SESSION_KEY, newUser.id);
-  }
+  setUser(data.user);
+  localStorage.setItem('token', data.token); // Store the token instead of user ID
 };
 
   const logout = () => {
@@ -90,17 +85,28 @@ const signup = async (name: string, email: string, password: string) => {
     localStorage.removeItem(SESSION_KEY);
   };
 
-  const updateUser = (updates: Partial<User>) => {
-    if (!user) return;
-    const updated = { ...user, ...updates };
-    setUser(updated);
-    const users: (User & { password: string })[] = JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
-    const idx = users.findIndex(u => u.id === user.id);
-    if (idx !== -1) {
-      users[idx] = { ...users[idx], ...updates };
-      localStorage.setItem(USERS_KEY, JSON.stringify(users));
-    }
-  };
+const updateUser = async (updates: Partial<User>) => {
+  if (!user) return;
+
+  const token = localStorage.getItem('token');
+
+  const response = await fetch(`${BASE_URL}/api/auth/me`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(updates),
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ message: 'Failed to update user' }));
+    throw new Error(error.message || 'Failed to update user');
+  }
+
+  const data = await response.json();
+  setUser(data.user);
+};
 
   return (
     <AuthContext.Provider value={{ user, isLoading, login, signup, logout, updateUser }}>
