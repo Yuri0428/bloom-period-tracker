@@ -36,15 +36,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password: string) => {
-    await new Promise(r => setTimeout(r, 600));
-    const users: (User & { password: string })[] = JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
-    const found = users.find(u => u.email.toLowerCase() === email.toLowerCase() && (u as any).password === password);
-    if (!found) throw new Error('Invalid email or password');
-    const { password: _, ...userWithoutPw } = found;
-    setUser(userWithoutPw);
-    localStorage.setItem(SESSION_KEY, found.id);
-  };
+const login = async (email: string, password: string) => {
+  const response = await fetch(`${BASE_URL}/api/auth/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ message: 'Invalid email or password' }));
+    throw new Error(error.message || 'Invalid email or password');
+  }
+
+  const user = await response.json();
+  setUser(user);
+};
 
 const signup = async (name: string, email: string, password: string) => {
   await new Promise(r => setTimeout(r, 600));
