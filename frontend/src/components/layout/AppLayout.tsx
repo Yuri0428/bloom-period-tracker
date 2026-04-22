@@ -31,7 +31,7 @@ export default function AppLayout() {
           <button onClick={() => setMobileOpen(true)} className="text-gray-400 hover:text-white p-1">
             <Menu size={22} />
           </button>
-          <h1 className="text-white font-bold text-lg" style={{ fontFamily: 'Playfair Display, serif' }}>🌙 Luna</h1>
+          <h1 className="text-white font-bold text-lg" style={{ fontFamily: 'Playfair Display, serif' }}>🌙 Bloom</h1>
         </div>
 
         <main className="flex-1 overflow-y-auto">

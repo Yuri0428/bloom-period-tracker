@@ -105,7 +105,7 @@ Update name or cycle preferences.
 
 ---
 
-### PUT `/api/auth/change-password` 🔒
+### PUT `/api/auth/change-`password 🔒
 **Body:**
 ```json
 { "currentPassword": "old", "newPassword": "new123" }

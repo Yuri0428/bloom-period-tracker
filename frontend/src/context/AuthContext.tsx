@@ -19,8 +19,8 @@ export const useAuth = () => {
   return ctx;
 };
 
-const USERS_KEY = 'luna_users';
-const SESSION_KEY = 'luna_session';
+const USERS_KEY = 'Bloom_users';
+const SESSION_KEY = 'Bloom_session';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);

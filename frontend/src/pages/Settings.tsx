@@ -17,11 +17,15 @@ export default function Settings() {
     toast.success('Settings saved! 🌸');
   };
 
+  const handleResetPassword = () => {
+
+  };
+
   const handleClearData = () => {
     if (confirm('This will permanently delete ALL your period entries. This cannot be undone. Continue?')) {
-      const all = JSON.parse(localStorage.getItem('luna_entries') || '[]');
+      const all = JSON.parse(localStorage.getItem('Bloom_entries') || '[]');
       const filtered = all.filter((e: any) => e.userId !== user?.id);
-      localStorage.setItem('luna_entries', JSON.stringify(filtered));
+      localStorage.setItem('Bloom_entries', JSON.stringify(filtered));
       window.location.reload();
     }
   };
@@ -32,7 +36,7 @@ export default function Settings() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `luna-export-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `Bloom-export-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
     toast.success('Data exported! 📁');
@@ -40,8 +44,14 @@ export default function Settings() {
 
   return (
     <div className="p-6 max-w-2xl mx-auto space-y-6">
+      <div className="mt-4">
+        {/* <button onClick={handleResetPassword}
+          className="p-4 flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-white transition-all hover:opacity-90"
+          style={{ background: 'linear-gradient(135deg, #ff6b9d, #c44de3)', cursor: "pointer" }}>
+          🔑 Click here to reset password
+        </button> */}
+      </div>
       <h1 className="text-2xl font-bold text-white">⚙️ Settings</h1>
-
       {/* Profile */}
       <Section title="👤 Profile">
         <div className="space-y-4">
@@ -56,6 +66,7 @@ export default function Settings() {
               style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }} />
           </Field>
         </div>
+
       </Section>
 
       {/* Cycle Settings */}
@@ -109,16 +120,14 @@ export default function Settings() {
       </Section>
 
       {/* About */}
-      <Section title="ℹ️ About Luna">
+      <Section title="ℹ️ About Bloom">
         <div className="space-y-2 text-sm text-gray-400">
-          <p>Luna is a privacy-first period tracker. All your data is stored locally on your device.</p>
+          <p>Bloom is a privacy-first period tracker. All your data is stored locally on your device.</p>
           <p>No accounts required beyond local storage. No data is ever sent to any server.</p>
           <div className="mt-3 grid grid-cols-2 gap-3">
             {[
               { label: 'Version', value: '1.0.0' },
-              { label: 'Data Storage', value: 'Local Only' },
               { label: 'Privacy', value: '100% Private' },
-              { label: 'Tracking', value: 'No Analytics' },
             ].map(item => (
               <div key={item.label} className="flex justify-between p-2.5 rounded-lg" style={{ background: 'rgba(255,255,255,0.04)' }}>
                 <span className="text-gray-500 text-xs">{item.label}</span>

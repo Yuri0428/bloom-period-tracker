@@ -28,7 +28,7 @@ export default function AuthPage() {
         toast.success('Welcome back! 🌸');
       } else {
         await signup(name, email, password);
-        toast.success('Account created! Welcome to Luna 🌙');
+        toast.success('Account created! Welcome to Bloom 🌙');
       }
     } catch (err: any) {
       toast.error(err.message || 'Something went wrong');
@@ -59,7 +59,7 @@ export default function AuthPage() {
             style={{ background: 'linear-gradient(135deg, #ff6b9d, #c44de3)' }}>
             <span className="text-4xl">🌙</span>
           </div>
-          <h1 className="text-4xl font-bold text-white" style={{ fontFamily: 'Playfair Display, serif' }}>Luna</h1>
+          <h1 className="text-4xl font-bold text-white" style={{ fontFamily: 'Playfair Display, serif' }}>Bloom</h1>
           <p className="text-pink-200 mt-1 text-sm tracking-widest uppercase">Period & Cycle Tracker</p>
         </div>
 

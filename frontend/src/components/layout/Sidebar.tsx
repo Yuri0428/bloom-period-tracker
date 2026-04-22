@@ -56,7 +56,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
           🌙
         </div>
         <div>
-          <h1 className="text-white font-bold text-lg leading-none" style={{ fontFamily: 'Playfair Display, serif' }}>Luna</h1>
+          <h1 className="text-white font-bold text-lg leading-none" style={{ fontFamily: 'Playfair Display, serif' }}>Bloom</h1>
           <p className="text-pink-400 text-xs">Cycle Tracker</p>
         </div>
       </div>

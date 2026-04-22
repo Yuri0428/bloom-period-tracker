@@ -21,7 +21,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
             style={{ background: 'linear-gradient(135deg, #ff6b9d, #c44de3)' }}>
             🌙
           </div>
-          <p className="text-pink-300 text-sm">Loading Luna...</p>
+          <p className="text-pink-300 text-sm">Loading Bloom...</p>
         </div>
       </div>
     );
